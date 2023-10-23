@@ -1,0 +1,41 @@
+name: Create Release with VSIX
+
+on:
+  push:
+    tags:
+      - '*'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Set up Node.js
+      uses: actions/setup-node@v2
+      with:
+        node-version: '18'
+
+    - name: Install dependencies
+      run: npm install
+
+    - name: Install VSCE
+      run: npm install -g vsce
+
+    - name: Package VSCode extension
+      run: vsce package
+      id: vsce
+
+    - name: Create GitHub release and upload VSIX
+      uses: gh-actions/create-release@v1
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+        tag_name: ${{ github.ref }}
+        release_name: Release ${{ github.ref }}
+        body: ''
+        draft: false
+        prerelease: false
+        files: |
+          *.vsix

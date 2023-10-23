@@ -1,8 +1,10 @@
 # idle-session-detector README
 
-This is the README for your extension "idle-session-detector". After writing up a brief description, we recommend including the following sections.
+The 'idle-session-detector' plugin is meant for use in determining when a remote VSCode server session has become idle.
 
 ## Features
+
+* Monitors file editing activity via the VSCode `vscode.workspace.onDidChangeTextDocument` event
 
 Describe specific features of your extension including screenshots of your extension in action. Image paths are relative to this README file.
 
