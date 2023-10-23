@@ -3,7 +3,7 @@ name: Create Release with VSIX
 on:
   push:
     tags:
-      - '*'
+      - "v*.*.*"
 
 jobs:
   build:
@@ -29,13 +29,11 @@ jobs:
       id: vsce
 
     - name: Create GitHub release and upload VSIX
-      uses: actions/create-release@v1
+      uses: softprops/action-gh-release@v1
       with:
-        token: ${{ secrets.GITHUB_TOKEN }}
         tag_name: ${{ github.ref }}
         release_name: Release ${{ github.ref }}
         body: ''
         draft: false
         prerelease: false
-        files: |
-          *.vsix
+        files: *.vsix
