@@ -11,8 +11,8 @@ idle, in increments of 5s.
 // Import the module and reference it with the alias vscode in your code below
 const vscode = require('vscode');
 
-// Stuff we might want to change from time to time
-let idleNotice = 300;
+// Set by configuration
+let idleNotice;
 
 // Importing required module for file operations
 const fs = require('fs').promises;  // Ensure you're using fs.promises
@@ -91,6 +91,19 @@ async function onTimerTick() {  // Mark the function as async
 
 // This method is called when your extension is activated
 function activate(context) {
+  // Get configuration vars
+  let configuration = vscode.workspace.getConfiguration('idleSessionDetector');
+  idleNotice = configuration.get('idleNoticeSeconds');
+
+  context.subscriptions.push(
+    vscode.workspace.onDidChangeConfiguration(event => {
+      if (event.affectsConfiguration('idleSessionDetector')) {
+        configuration = vscode.workspace.getConfiguration('idleSessionDetector');
+        idleNotice = configuration.get('idleNoticeSeconds');
+      }
+    })
+  );
+
   // vscode.window.showInformationMessage('Idle session monitor started ...');
   updateIdleFile();
   // Initialize a timer to tick every 5 seconds
