@@ -2,6 +2,10 @@
 
 All notable changes to the "idle-session-detector" extension will be documented in this file.
 
+## [0.2.1] - 2023-10-26
+- Updated README
+- Improved formatting of idle notice time
+
 ## [0.2.0] - 2023-10-25
 
 ### Added

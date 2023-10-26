@@ -43,7 +43,7 @@ function updateIdleFile() {
 function incrementAndNotify() {
   secondsIdle += 5;
   if (secondsIdle % idleNotice === 0) {
-    const minutesIdle = (secondsIdle / 60).toFixed(2);
+    const minutesIdle = parseFloat((secondsIdle / 60).toFixed(2));
     vscode.window.showInformationMessage(`Notice: You have been idle for ${minutesIdle} minutes`);
   }
   updateIdleFile();

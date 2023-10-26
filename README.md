@@ -5,63 +5,32 @@ The 'idle-session-detector' plugin is meant for use in determining when a remote
 ## Features
 
 * Monitors file editing activity via the VSCode `vscode.workspace.onDidChangeTextDocument` event
-
-Describe specific features of your extension including screenshots of your extension in action. Image paths are relative to this README file.
-
-For example if there is an image subfolder under your extension project workspace:
-
-\!\[feature X\]\(images/feature-x.png\)
-
-> Tip: Many popular extensions utilize animations. This is an excellent way to show off your extension! We recommend short, focused animations that are easy to follow.
+* Monitors terminal activity using `/dev/pty/NN` timestamps
+* Records seconds idle in `~/.vscode-idle`, +/- 5s
 
 ## Requirements
 
-If you have any requirements or dependencies, add a section describing those and how to install and configure them.
+This is mostly only usefuly for VSCode Server running in a container, and you'll need a external process/script to monitor and act on the idle time.
 
 ## Extension Settings
 
-Include if your extension adds any VS Code settings through the `contributes.configuration` extension point.
-
-For example:
-
 This extension contributes the following settings:
+* `idleSessionDetector.idleNoticeSeconds`: How often to send `Notice: You have been idle for ${minutesIdle} minutes`
 
-* `myExtension.enable`: Enable/disable this extension.
-* `myExtension.thing`: Set to `blah` to do something.
+## Dev Notes
+* `vsce` is the node module needed to build locally; `npm install -g vsce`; `vsce package`
+* `./install-local.sh idle-session-detector-X.Y.Z.vsix` to install
 
 ## Known Issues
 
-Calling out known issues can help limit users opening duplicate issues against your extension.
+None.
 
 ## Release Notes
 
-Users appreciate release notes as you update your extension.
+### 0.1.0
 
-### 1.0.0
+Initial release
 
-Initial release of ...
+### 0.2.0
 
-### 1.0.1
-
-Fixed issue #.
-
-### 1.1.0
-
-Added features X, Y, and Z.
-
----
-
-## Working with Markdown
-
-You can author your README using Visual Studio Code.  Here are some useful editor keyboard shortcuts:
-
-* Split the editor (`Cmd+\` on macOS or `Ctrl+\` on Windows and Linux)
-* Toggle preview (`Shift+Cmd+V` on macOS or `Shift+Ctrl+V` on Windows and Linux)
-* Press `Ctrl+Space` (Windows, Linux, macOS) to see a list of Markdown snippets
-
-## For more information
-
-* [Visual Studio Code's Markdown Support](http://code.visualstudio.com/docs/languages/markdown)
-* [Markdown Syntax Reference](https://help.github.com/articles/markdown-basics/)
-
-**Enjoy!**
+Made `idleNoticeSeconds` configurable and defaulted to 30m.
